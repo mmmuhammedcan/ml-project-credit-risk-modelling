@@ -2,7 +2,7 @@
 
 An interactive **Streamlit** app that estimates a borrower’s **default probability**, computes a **credit score**, and assigns a **risk rating** from key financial and behavioral features.
 
-🔗 **Live Demo:** https://mco-ml-project-healthcare-premium-prediction.streamlit.app/
+🔗 **Live Demo:** https://mco-ml-project-credit-risk-modelling.streamlit.app/
 
 ---
 
