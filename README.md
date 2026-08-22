@@ -9,7 +9,7 @@ An interactive **Streamlit** app that estimates a borrower’s **default probabi
 ## 🚀 What the App Does
 - Collects key loan & borrower attributes.
 - Predicts **Default Probability** (0–100%).
-- Calculates a **Credit Score** and **Risk Rating** (e.g., Poor / Fair / Good).
+- Calculates a **Credit Score** and **Risk Rating** (e.g., Poor / Average / Good / Excellent).
 - Clean, dark-themed UI for quick experimentation.
 
 ---
@@ -51,6 +51,9 @@ An interactive **Streamlit** app that estimates a borrower’s **default probabi
 ├── README.md              # Project documentation
 ├── .gitignore             # Git ignore rules
 ├── artifacts/             # Stored model artifacts (trained models, scalers, etc.)
+├── evaluation/
+│   ├── evaluate.py        # Independent, leak-free evaluation of the deployed model
+│   └── results.txt        # Held-out test results (see Model Evaluation below)
 └── __pycache__/           # Compiled Python cache files
 ~~~
 
@@ -59,8 +62,8 @@ An interactive **Streamlit** app that estimates a borrower’s **default probabi
 ## ⚡ Run Locally
 ~~~bash
 # Clone the repo
-git clone https://github.com/your-username/credit-risk-modelling.git
-cd credit-risk-modelling
+git clone https://github.com/mmmuhammedcan/ml-project-credit-risk-modelling.git
+cd ml-project-credit-risk-modelling
 
 # (Optional) create & activate a virtual environment
 # python -m venv .venv && source .venv/bin/activate   # macOS/Linux
@@ -83,7 +86,7 @@ Open in your browser: `http://localhost:8501`
 - The helper returns:
   - **Default Probability (%)**
   - **Credit Score**
-  - **Risk Rating (e.g., Poor / Fair / Good)**  
+  - **Risk Rating (e.g., Poor / Average / Good / Excellent)**  
 - The results are displayed instantly on the page.
 
 ---
@@ -93,8 +96,28 @@ Open in your browser: `http://localhost:8501`
 
 ---
 
+## 📊 Model Evaluation
+
+Logistic Regression (SMOTE-balanced training, class-imbalance aware), evaluated on a held-out
+25% test split never seen during training or model selection (`evaluation/evaluate.py`,
+reproducible from the raw dataset):
+
+| | precision | recall | f1-score | support |
+|---|---|---|---|---|
+| No Default (0) | 0.994 | 0.932 | 0.962 | 11,423 |
+| Default (1) | 0.565 | 0.940 | 0.706 | 1,074 |
+
+**Accuracy: 93.3% · ROC-AUC: 0.984 · Gini: 0.967**
+
+The model is deliberately tuned for high recall on the minority "default" class (94% of actual
+defaults are caught) at the cost of precision — appropriate for a credit-risk screen, where a
+missed default is more costly than a false alarm. Full report and confusion matrix in
+`evaluation/results.txt`.
+
+---
+
 ## 🔗 Links
-- **Live App:** [Streamlit Deployment](https://mco-ml-project-healthcare-premium-prediction.streamlit.app/)  
+- **Live App:** [Streamlit Deployment](https://mco-ml-project-credit-risk-modelling.streamlit.app/)  
 - **My GitHub Profile:** [https://github.com/mmmuhammedcan](https://github.com/mmmuhammedcan)
 
 ---

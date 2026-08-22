@@ -1,0 +1,20 @@
+held-out test rows: 12497 (positive rate: 0.086)
+Split: train_test_split(stratify=y, test_size=0.25, random_state=42), reproduced from
+the original notebook's split parameters on the raw customers+loans+bureau data.
+This 25% portion was never used to fit or select the deployed model.
+
+              precision    recall  f1-score   support
+
+           0      0.994     0.932     0.962     11423
+           1      0.565     0.940     0.706      1074
+
+    accuracy                          0.933     12497
+   macro avg      0.780     0.936     0.834     12497
+weighted avg      0.957     0.933     0.940     12497
+
+confusion matrix (rows=true, cols=pred):
+[[10646   777]
+ [   64  1010]]
+
+ROC-AUC: 0.9837
+Gini: 0.9673
